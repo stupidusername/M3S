@@ -71,20 +71,23 @@ abstract class Channel {
                 'channels.' . $categoryId,
                 function () use ($category, $categoryPath) {
                     $channels = [];
-                    // Get a list of the supported files from the category
-                    // folder.
-                    $files = glob(
-                        $categoryPath . '/*.{txt,jpeg,jpg,png}',
-                        GLOB_BRACE
+                    // Get a list of the files from the category folder.
+                    $files = array_filter(
+                        scandir($categoryPath),
+                        function ($filename) use ($categoryPath) {
+                            return is_file(
+                                $categoryPath . DIRECTORY_SEPARATOR . $filename
+                            );
+                        }
                     );
                     // Build the channel list.
-                    foreach ($files as $k => $path) {
+                    foreach ($files as $k => $filename) {
                         $matches = [];
                         // Use RegEx to find the channel number, title and file
                         // extension.
-                        $filename = basename($path);
+                        // Only match supported extensions.
                         preg_match(
-                            '/^(\d+)\s-\s(.+)\.([^.]+)$/',
+                            '/^(\d+)\s*-\s*(.+)\.(txt|jpeg|jpg|png)$/i',
                             $filename,
                             $matches,
                             PREG_OFFSET_CAPTURE);
