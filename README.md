@@ -2,6 +2,7 @@
 
 This web app uses the [Yii2 framework](https://www.yiiframework.com/doc/guide/2.0/en).
 
+Refer to the [changelog](CHANGELOG.md) to see the release notes.
 
 ## Requirements
 
