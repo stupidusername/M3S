@@ -72,7 +72,7 @@ abstract class Music {
             // Get the song list from the cache or set its value.
             $songs = Yii::$app->cache->getOrSet(
                 'songs.' . $radioId,
-                function () use ($getID3, $radio, $radioPath) {
+                function () use ($radio, $radioPath) {
                     $songs = [];
                     // Get a list of the files from the radio folder.
                     $files = scandir($radioPath);
