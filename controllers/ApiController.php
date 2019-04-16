@@ -97,7 +97,7 @@ class ApiController extends \yii\web\Controller {
             Yii::$app->getResponse()->sendContentAsFile(
                 $albumartData['data'],
                 $albumartFilename,
-                ['mimeType' => $albumartData['mimeType']],
+                ['mimeType' => $albumartData['mimeType']]
             );
         }
     }
