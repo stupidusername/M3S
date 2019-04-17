@@ -191,7 +191,7 @@ class AdminController extends Controller {
 	 */
 	public function actionUpdateServiceTariffs() {
 		// Get service tariff information from the SGH server.
-		$url = $this->_buildUrl(self::METHOD_TARIFFS);
+		$url = $this->_buildUrl(self::SGH_API_METHOD_GET_SERVICE_TARIFFS);
 		$tariffs = $this->_getJson($url);
 		// Delete the service tariffs that are no longer needed.
 		$keys = ArrayHelper::getColumn($tariff, 'RCKEY');
