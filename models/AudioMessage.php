@@ -99,10 +99,7 @@ class AudioMessage extends \yii\db\ActiveRecord {
      * @return AudioMessage|null The saved model or null if an error occurred.
      */
     public static function saveFromSGHData($message) {
-        $audioMessage = self::findOne(['key' => $message->AMKEY]);
-        if (!$audioMessage) {
-            $audioMessage = new self();
-        }
+        $audioMessage = new self();
         $audioMessage->key = $message->AMKEY;
         $audioMessage->name = $message->AMNAME;
         $audioMessage->name_spanish = $message->AMSNAME;
@@ -125,7 +122,10 @@ class AudioMessage extends \yii\db\ActiveRecord {
      * @return AudioMessage|null Null if the model was not found.
      */
     public static function getAudioMessage($key, $room = null) {
-        $model = new self();
+        $model = self::find()->where(['key' => $key])->one();
+        if ($model) {
+            $model->room = $room;
+        }
         return $model;
     }
 }
