@@ -3,7 +3,6 @@
 namespace app\models;
 
 use Yii;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
 /**
@@ -20,7 +19,7 @@ use yii\helpers\Url;
 class BarArticle extends \yii\db\ActiveRecord {
 
     // The folder where the article pictures are stored.
-    const FOLDER_BAR_IMAGES = 'images/bar';
+    const BAR_IMAGES_FOLDER = 'images/bar';
 
     /**
      * {@inheritdoc}
@@ -38,7 +37,7 @@ class BarArticle extends \yii\db\ActiveRecord {
         $fields['pictureUrl'] = function () {
             if ($this->picture_filename) {
                 $path = '@web/' .
-                    self::FOLDER_BAR_IMAGES . '/'. $this->picture_filename;
+                    self::BAR_IMAGES_FOLDER . '/'. $this->picture_filename;
                 return Url::to(
 					$path,
 					true
@@ -79,13 +78,6 @@ class BarArticle extends \yii\db\ActiveRecord {
         // Get all the saved models of the bar group.
         $models =
             self::find()->where(['bar_group_id' => $barGroup->id])->all();
-        // Delete the models that are no longer needed.
-        $keys = ArrayHelper::getColumn($articles, 'ARTKEY');
-        foreach ($models as $model) {
-            if (!in_array($model->key, $keys)) {
-                $model->delete();
-            }
-        }
         // Save the articles.
         $return = [];
         foreach ($articles as $article) {

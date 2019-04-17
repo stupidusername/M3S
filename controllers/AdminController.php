@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use Yii;
-use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\Response;
 use app\models\AudioMessage;
@@ -28,10 +27,6 @@ class AdminController extends Controller {
 	const SGH_API_METHOD_LIST_AUDIO_MESSAGE_FILES = 'rAudioMessageFiles';
 	const SGH_API_METHOD_GET_AUDIO_MESSAGE_FILE = 'rAudioMessage';
 	const SGH_API_METHOD_GET_SERVICE_TARIFFS = ' rFullServiceTariffs';
-
-	// Folders used to store the data files.
-	const FOLDER_AUDIO_MESSAGES = 'audios/messages';
-	const FOLDER_BAR_IMAGES = 'images/bar';
 
 	// cURL settings used to get the info from the SGH server.
 	const CURLOPT_CONNECTTIMEOUT = 10;
@@ -77,7 +72,7 @@ class AdminController extends Controller {
 	 */
 	public function actionUpdateAudioMessages() {
 		// The folder where the audio message files are be stored.
-		$folder = Yii::getAlias('@webroot/' . self::FOLDER_AUDIO_MESSAGES);
+		$folder = Yii::getAlias('@webroot/' . AudioMessage::AUDIO_MESSAGES_FOLDER);
 		// Delete old audio files.
 		$oldFiles = glob($folder);
 		foreach ($oldFiles as $oldFile) {
@@ -103,14 +98,8 @@ class AdminController extends Controller {
 		// Get audio messages from the SGH server.
 		$url = $this->_buildUrl(self::SGH_API_METHOD_GET_AUDIO_MESSAGES);
 		$messages = $this->_getJson($url);
-		// Delete the audio messages that are no longer needed.
-		$keys = ArrayHelper::getColumn($messages, 'AMKEY');
-		$audioMessages = AudioMessage::find()->all();
-		foreach ($audioMessages as $audioMessage) {
-			if (!in_array($audioMessage->key, $keys)) {
-                $audioMessage->delete();
-            }
-		}
+		// Delete old audio messages.
+		AudioMessage::deleteAll();
 		// Save each message.
 		foreach ($messages as $message) {
 			// Store the model in the DB.
@@ -130,7 +119,7 @@ class AdminController extends Controller {
 	 */
 	public function actionUpdateBarArticles() {
 		// Folder where the bar article images are be stored.
-		$folder = Yii::getAlias('@webroot/' . self::FOLDER_BAR_IMAGES);
+		$folder = Yii::getAlias('@webroot/' . BarArticle::BAR_IMAGES_FOLDER);
 		// Delete old images.
 		$oldFiles = glob($folder);
 		foreach ($oldFiles as $oldFile) {
@@ -141,14 +130,9 @@ class AdminController extends Controller {
 		// Get bar article groups from the SGH server.
 		$url = $this->_buildUrl(self::SGH_API_METHOD_GET_BAR_ARTICLE_GROUPS);
 		$groups = $this->_getJson($url);
-		// Delete the bar groups that are no longer needed.
-		$keys = ArrayHelper::getColumn($groups, 'ARTGROUPKEY');
-		$barGroups = BarGroup::find()->all();
-		foreach ($barGroups as $barGroup) {
-			if (!in_array($barGroup->key, $keys)) {
-                $barGroup->delete();
-            }
-		}
+		// Delete old bar articles and their groups.
+		BarArticle::deleteAll();
+		BarGroup::deleteAll();
 		// Save each group.
 		foreach ($groups as $group) {
 			$barGroup = BarGroup::saveFromSGHData($group);
@@ -193,14 +177,8 @@ class AdminController extends Controller {
 		// Get service tariff information from the SGH server.
 		$url = $this->_buildUrl(self::SGH_API_METHOD_GET_SERVICE_TARIFFS);
 		$tariffs = $this->_getJson($url);
-		// Delete the service tariffs that are no longer needed.
-		$keys = ArrayHelper::getColumn($tariffs, 'RCKEY');
-		$serviceTariffs = ServiceTariff::find()->all();
-		foreach ($serviceTariffs as $serviceTariff) {
-			if (!in_array($serviceTariff->key, $keys)) {
-                $serviceTariff->delete();
-            }
-		}
+		// Delete old service tariffs.
+		ServiceTariff::deleteAll();
 		// Save each one to the DB.
 		foreach ($tariffs as $tariff) {
 			if (!ServiceTariff::saveFromSGHData($tariff)) {
