@@ -147,14 +147,14 @@ abstract class Music {
                     $ext = $mimes->getExtension($picture['image_mime']);
                     $songPath = $dir . '/' . $filename;
                     $albumartFilename = $filename . '.' . $ext;
-                    $albumartUrl = urldecode(Url::to(
+                    $albumartUrl = Url::to(
                         [
                             'api/get-song-albumart',
                             'songPath' => $songPath,
                             'albumartFilename' => $albumartFilename,
                         ],
                         true
-                    ));
+                    );
                 }
             }
 
