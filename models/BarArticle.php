@@ -81,7 +81,7 @@ class BarArticle extends \yii\db\ActiveRecord {
         // Save the articles.
         $return = [];
         foreach ($articles as $article) {
-            $model = self::find()->where(['' => $article->ARTKEY])->one();
+            $model = self::find()->where(['key' => $article->ARTKEY])->one();
             if (!$model) {
                 $model = new self();
             }
