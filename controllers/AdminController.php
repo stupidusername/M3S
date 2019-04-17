@@ -250,7 +250,7 @@ class AdminController extends Controller {
 		$resp = curl_exec($ch);
 		// Check that the request was successful.
 		if ($resp !== false) {
-			$json = json_decode();
+			$json = json_decode($resp);
 			// Check that the JSON response was decoded.
 			if ($json) {
 				// Get the information from the JSON response.
