@@ -77,7 +77,7 @@ class AdminController extends Controller {
 	 */
 	public function actionUpdateAudioMessages() {
 		// The folder where the audio message files are be stored.
-		$folder = Yii::getAlias('@webroot' . self::FOLDER_AUDIO_MESSAGES);
+		$folder = Yii::getAlias('@webroot/' . self::FOLDER_AUDIO_MESSAGES);
 		// Delete old audio files.
 		$oldFiles = glob($folder);
 		foreach ($oldFiles as $oldFile) {
@@ -130,7 +130,7 @@ class AdminController extends Controller {
 	 */
 	public function actionUpdateBarArticles() {
 		// Folder where the bar article images are be stored.
-		$folder = Yii::getAlias('@webroot' . self::FOLDER_BAR_IMAGES);
+		$folder = Yii::getAlias('@webroot/' . self::FOLDER_BAR_IMAGES);
 		// Delete old images.
 		$oldFiles = glob($folder);
 		foreach ($oldFiles as $oldFile) {
