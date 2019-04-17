@@ -224,7 +224,7 @@ class AdminController extends Controller {
 			$urlParams .= '/' . $param;
 		}
 		$url =
-			self::SGH_API_SCHEME . $requestIP . self::SGH_API_PORT .
+			self::SGH_API_SCHEME . $requestIP . ':' . self::SGH_API_PORT .
 			self::SGH_API_METHODS_PATH . $method . $urlParams;
 		return $url;
 	}
