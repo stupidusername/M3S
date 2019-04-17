@@ -75,16 +75,10 @@ class BarArticle extends \yii\db\ActiveRecord {
      * @return BarArticle[] Saved bar articles.
      */
     public static function saveFromSGHData($articles, $barGroup) {
-        // Get all the saved models of the bar group.
-        $models =
-            self::find()->where(['bar_group_id' => $barGroup->id])->all();
         // Save the articles.
         $return = [];
         foreach ($articles as $article) {
-            $model = self::find()->where(['key' => $article->ARTKEY])->one();
-            if (!$model) {
-                $model = new self();
-            }
+            $model = new self();
             $model->bar_group_id = $barGroup->id;
             $model->key = $article->ARTKEY;
             $model->id_number = $article->ARTIDNUM;

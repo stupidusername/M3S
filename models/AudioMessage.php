@@ -125,10 +125,7 @@ class AudioMessage extends \yii\db\ActiveRecord {
      * @return AudioMessage|null Null if the model was not found.
      */
     public static function getAudioMessage($key, $room = null) {
-        $model = self::find()->where(['key' => $key])->one();
-        if ($model) {
-            $model->room = $room;
-        }
+        $model = new self();
         return $model;
     }
 }
