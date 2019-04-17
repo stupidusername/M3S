@@ -92,7 +92,7 @@ class AdminController extends Controller {
 			if (!$this->_download($url, $file->AMFILENAME, $folder)) {
 				// An error ocurred while saving the file.
 				$this->_errors[] =
-					'Error saving file ' . $file->AMFILENAME;
+					'Error saving file ' . $file->AMFILENAME . ' from ' . $url;
 			}
 		}
 		// Get audio messages from the SGH server.
