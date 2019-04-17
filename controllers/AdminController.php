@@ -104,7 +104,7 @@ class AdminController extends Controller {
 		$url = $this->_buildUrl(self::SGH_API_METHOD_GET_AUDIO_MESSAGES);
 		$messages = $this->_getJson($url);
 		// Delete the audio messages that are no longer needed.
-		$keys = ArrayHelper::getColumn($groups, 'AMKEY');
+		$keys = ArrayHelper::getColumn($messages, 'AMKEY');
 		$audioMessages = AudioMessage::find()->all();
 		foreach ($audioMessages as $audioMessage) {
 			if (!in_array($audioMessage->key, $keys)) {
