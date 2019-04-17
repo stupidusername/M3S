@@ -134,7 +134,8 @@ class ApiController extends \yii\web\Controller {
      * @return BarArticle[]
      */
     public function actionGetBarArticles($id) {
-        $barArticles = BarArticle::find(['bar_group_id' => $id])->all();
+        $barArticles =
+            BarArticle::find()->andWhere(['bar_group_id' => $id])->all();
         return $barArticles;
     }
 
