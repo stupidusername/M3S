@@ -124,8 +124,10 @@ abstract class Music {
             $album = null;
             $author = null;
             $albumartFilename = null;
+            $encFilename = rawurlencode($filename);
+            $encDir = rawurlencode($dir);
             $songUrl = Url::to(
-                '@web/' . self::FOLDER . '/' . $dir . '/' . $filename,
+                '@web/' . self::FOLDER . '/' . $encDir . '/' . $encFilename,
                 true
             );
             $albumartUrl = null;

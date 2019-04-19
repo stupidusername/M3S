@@ -36,10 +36,9 @@ class BarArticle extends \yii\db\ActiveRecord {
         $fields = parent::fields();
         $fields['pictureUrl'] = function () {
             if ($this->picture_filename) {
-                $path = '@web/' .
-                    self::BAR_IMAGES_FOLDER . '/'. $this->picture_filename;
+                $encFilename = rawurlencode($this->picture_filename);
                 return Url::to(
-					$path,
+                    '@web/' . self::BAR_IMAGES_FOLDER . '/'. $encFilename,
 					true
 				);
             } else {

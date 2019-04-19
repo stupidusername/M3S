@@ -100,10 +100,11 @@ abstract class Channel {
                             $logo = null;
                             $logoUrl = null;
                             if (strtolower($ext) != 'txt') {
-                                $logoFilename = $filename;
+                                $encFolder = rawurlencode($category['title']);
+                                $encFilename = rawurlencode($filename);
                                 $logoUrl = Url::to(
                                     '@web/' . self::FOLDER . '/' .
-                                        $category['title']. '/' . $filename,
+                                        $encFolder . '/' . $encFilename,
                                     true
                                 );
                             }
@@ -113,7 +114,7 @@ abstract class Channel {
                                 'channel_category_id' => $category['id'],
                                 'number' => $number,
                                 'title' => $title,
-                                'logo_filename' => $logoFilename,
+                                'logo_filename' => $filename,
                                 'logoUrl' => $logoUrl,
                             ];
                         }

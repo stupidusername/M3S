@@ -74,8 +74,9 @@ class AudioMessage extends \yii\db\ActiveRecord {
                 '@webroot/' . self::AUDIO_MESSAGES_FOLDER . '/' . $filename
             );
             if (file_exists($path)) {
+                $encFilename = rawurlencode($filename);
                 $audioMessageUrl = Url::to(
-                    '@web/' . self::AUDIO_MESSAGES_FOLDER . '/' . $filename,
+                    '@web/' . self::AUDIO_MESSAGES_FOLDER . '/' . $encFilename,
                     true
                 );
             }

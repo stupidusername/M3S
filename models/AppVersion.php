@@ -40,8 +40,9 @@ class AppVersion extends ActiveRecord {
 		// The field md5 contains the md5 hash of the update file.
         $fields = parent::fields();
         $fields['apkUrl'] = function () {
+            $encFilename = rawurlencode($this->filename);
             return Url::to(
-				'@web/' . self::UPDATES_FOLDER . '/' . $this->filename,
+				'@web/' . self::UPDATES_FOLDER . '/' . $encFilename,
 				true
 			);
         };
