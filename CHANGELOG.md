@@ -1,6 +1,12 @@
 # Changelog
 
 
+## 2.0.1 - 2019-05-29
+
+### Fixed
+- Convert invalid UTF-8 characters to \0xfffd (Unicode Character 'REPLACEMENT CHARACTER') in API JSON responses to avoid exceptions due to malformed UTF-8 characters.
+
+
 ## 2.0.0 - 2019-04-19
 
 ### Fixed
