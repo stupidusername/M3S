@@ -21,6 +21,17 @@ $config = [
         'request' => [
             'cookieValidationKey' => $local['cookieValidationKey'],
         ],
+        'response' => [
+            'formatters' => [
+                \yii\web\Response::FORMAT_JSON => [
+                    'class' => 'yii\web\JsonResponseFormatter',
+                    'encodeOptions' =>
+                        JSON_UNESCAPED_SLASHES |
+                        JSON_UNESCAPED_UNICODE |
+                        JSON_INVALID_UTF8_SUBSTITUTE,
+                ],
+            ],
+        ],
         'cache' => $local['cache'],
         'user' => [
             'identityClass' => 'app\models\User',
