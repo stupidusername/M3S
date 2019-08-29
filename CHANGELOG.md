@@ -1,6 +1,15 @@
 # Changelog
 
 
+## 2.0.2 - 2019-08-29
+
+### Added
+- Web server configuration instructions in `README.md`.
+
+### Fixed
+- Typo in `config/local-example.php`.
+
+
 ## 2.0.1 - 2019-05-29
 
 ### Fixed
