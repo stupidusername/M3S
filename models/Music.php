@@ -101,9 +101,9 @@ abstract class Music {
     }
 
     /**
-     * Get metadata information from one song.
+     * Get the information from one song.
      * @param string $path Path to the song file.
-     * @return array|null Returns null on error.
+     * @return array.
      */
     private static function getSongInformation($path) {
         // Get the song information using getID3.
@@ -113,26 +113,23 @@ abstract class Music {
         // array. All the tags are now in ['comments'].
         getid3_lib::CopyTagsToComments($info);
 
-        // Return null on error.
-        if (isset($info['error'])) {
-            return null;
-        } else {
-            // Default values.
-            $filename = basename($path);
-            $dir = basename(dirname($path));
-            $title = null;
-            $album = null;
-            $author = null;
-            $albumartFilename = null;
-            $encFilename = rawurlencode($filename);
-            $encDir = rawurlencode($dir);
-            $songUrl = Url::to(
-                '@web/' . self::FOLDER . '/' . $encDir . '/' . $encFilename,
-                true
-            );
-            $albumartUrl = null;
+        // Default values.
+        $filename = basename($path);
+        $dir = basename(dirname($path));
+        $title = null;
+        $album = null;
+        $author = null;
+        $albumartFilename = null;
+        $encFilename = rawurlencode($filename);
+        $encDir = rawurlencode($dir);
+        $songUrl = Url::to(
+            '@web/' . self::FOLDER . '/' . $encDir . '/' . $encFilename,
+            true
+        );
+        $albumartUrl = null;
 
-            // Get metadata.
+        // Add metadata if there were no errors while analyzing it.
+        if (!isset($info['error'])) {
             if (isset($info['comments']['title'])) {
                 $title = implode(' - ', $info['comments']['title']);
             }
@@ -159,18 +156,18 @@ abstract class Music {
                     );
                 }
             }
-
-            // Return information.
-            return [
-                'filename' => $filename,
-                'title' => $title,
-                'album' => $album,
-                'author' => $author,
-                'songUrl' => $songUrl,
-                'albumart_filename' => $albumartFilename,
-                'albumartUrl' => $albumartUrl,
-            ];
         }
+
+        // Return information.
+        return [
+            'filename' => $filename,
+            'title' => $title,
+            'album' => $album,
+            'author' => $author,
+            'songUrl' => $songUrl,
+            'albumart_filename' => $albumartFilename,
+            'albumartUrl' => $albumartUrl,
+        ];
     }
 
     /**
