@@ -14,7 +14,7 @@ Refer to the [changelog](CHANGELOG.md) to see the release notes.
 ## Installation
 
 * Create a DB for your app.
-* Clone/Copy the app code and move to its directory.
+* Clone/Copy the app code and move it to its directory.
 * Create configuration files `local.php` and `config/local.php` (examples are provided).
 * Install the composer packages required by the app:
     ```
@@ -24,6 +24,8 @@ Refer to the [changelog](CHANGELOG.md) to see the release notes.
     ```
     $ ./yii migrate
     ```
+* Install and configure a web server like NGINX or Apache.
+  See [Yii2 guide > configuring web serer](https://www.yiiframework.com/doc/guide/2.0/en/start-installation#configuring-web-servers).
 
 
 ## Music and TV channels
