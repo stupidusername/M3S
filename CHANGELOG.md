@@ -1,6 +1,12 @@
 # Changelog
 
 
+## 2.0.3 - 2019-08-29
+
+### Fixed
+- Fix bug where songs are not listed if its metadata can't be read.
+
+
 ## 2.0.2 - 2019-08-29
 
 ### Added
