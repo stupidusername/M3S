@@ -1,6 +1,12 @@
 # Changelog
 
 
+## 2.0.5 - 2021-04-08
+
+### Fixed
+- Update Yii2 to version 2.0.41.
+
+
 ## 2.0.4 - 2021-04-08
 
 ### Fixed
