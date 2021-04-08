@@ -1,6 +1,12 @@
 # Changelog
 
 
+## 2.0.4 - 2021-04-08
+
+### Fixed
+- Fix an error in the user model that may prevent authentication actions.
+
+
 ## 2.0.3 - 2019-08-29
 
 ### Fixed
